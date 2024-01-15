@@ -38,6 +38,10 @@ jobs:
           file: ./PGadmin/debian.Dockerfile
           push: true
           tags: |
+            navystack/pgadmin:4v8
+            navystack/pgadmin:4v8.2
+            navystack/pgadmin:8
+            navystack/pgadmin:8.2
             navystack/pgadmin:bookworm
-            navystack/pgadmin:4
+            navystack/pgadmin:latest
           platforms: linux/amd64,linux/arm64
