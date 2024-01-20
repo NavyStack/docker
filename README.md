@@ -51,3 +51,8 @@ docker system prune -af
 ### Docker 빌드 캐시만 날리기
 ```bash
 docker buildx prune -af
+```
+### Compile 관련
+```bash
+docker buildx build --platform linux/arm/v7 -t test -f Dockerfile . --load --progress=plain 2>&1 | grep "Run-time dependency"
+```
