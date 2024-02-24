@@ -42,7 +42,6 @@ jobs:
             linux/amd64
             linux/arm64
 
-
       - name: Nginx-modular (Master)
         uses: docker/build-push-action@v5
         with:

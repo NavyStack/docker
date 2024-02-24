@@ -156,7 +156,7 @@ ENV PATH=$PATH:/usr/local/openresty/luajit/bin:/usr/local/openresty/nginx/sbin:/
     LUA_CPATH="/usr/local/openresty/site/lualib/?.so;/usr/local/openresty/lualib/?.so;./?.so;/usr/local/lib/lua/5.1/?.so;/usr/local/openresty/luajit/lib/lua/5.1/?.so;/usr/local/lib/lua/5.1/loadall.so;/usr/local/openresty/luajit/lib/lua/5.1/?.so" \
     TZ=Asia/Seoul
 
-COPY bookworm/openresty-modular/default.conf /usr/local/openresty/nginx/conf/nginx.conf
+COPY bookworm/openresty-modular/nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
 COPY bookworm/openresty-modular/default.conf /etc/nginx/conf.d/
 
 STOPSIGNAL SIGQUIT
