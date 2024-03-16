@@ -40,6 +40,15 @@ sudo apt-get update \
     && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
+##  CentOS, OL9 Docker 설치
+```bash
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+    && sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y \
+    && sudo systemctl enable docker.service && \
+    && sudo systemctl enable containerd.service && \
+    && sudo systemctl start docker
+```
+
 ## 공통사항
 
 ### docker 그룹 부여하기
