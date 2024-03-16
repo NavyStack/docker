@@ -34,29 +34,10 @@ RUN git clone --recurse-submodules -j8 https://github.com/nginx-modules/ngx_cach
     cd ngx_cache_purge && git reset --hard a84b0f3f082025dec737a537a9a443bdd6d6af9d && \  
     cd /opt/build-stage
 
-RUN case "$TARGETARCH" in \
-    amd64) \
-        wget https://www.tiredofit.nl/psol-${PSOL}.tar.xz && \
-        git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx.git && \
-        tar xvf psol-${PSOL}.tar.xz && \
-        mv psol incubator-pagespeed-ngx && \
-        tar zxvf nginx-${NGINX_VERSION}.tar.gz ;; \
-    arm64) \
-        wget https://gitlab.com/gusco/ngx_pagespeed_arm/-/raw/master/psol-1.15.0.0-aarch64.tar.gz && \
-        git clone --depth=1 https://github.com/apache/incubator-pagespeed-ngx.git && \
-        tar xvf psol-1.15.0.0-aarch64.tar.gz && \
-        mv psol incubator-pagespeed-ngx && \
-        sed -i 's/x86_64/aarch64/' incubator-pagespeed-ngx/config && \
-        sed -i 's/x64/aarch64/' incubator-pagespeed-ngx/config && \
-        sed -i 's/-luuid/-l:libuuid.so.1/' incubator-pagespeed-ngx/config && \
-        tar zxvf nginx-${NGINX_VERSION}.tar.gz ;; \
-    *) echo "Unsupported architecture: $TARGETARCH" ;; \
-    esac
 
 WORKDIR /opt/build-stage/nginx-${NGINX_VERSION}
 RUN ./configure --with-compat \
     --add-dynamic-module=../ngx_brotli \
-    --add-dynamic-module=../incubator-pagespeed-ngx \
     --add-dynamic-module=../ngx_immutable \
     --add-dynamic-module=../ngx_cache_purge && \
     make modules && \
@@ -65,7 +46,6 @@ RUN ./configure --with-compat \
 FROM nginx:${NGINX_VERSION} as final
 COPY --from=builder /opt/build-stage/nginx-${NGINX_VERSION}/objs/*.so /usr/lib/nginx/modules/
 RUN { \
-        sed -i '1iload_module modules/ngx_pagespeed.so;' /etc/nginx/nginx.conf; \
         sed -i '1iload_module modules/ngx_http_immutable_module.so;' /etc/nginx/nginx.conf; \
         sed -i '1iload_module modules/ngx_http_cache_purge_module.so;' /etc/nginx/nginx.conf; \
         sed -i '1iload_module modules/ngx_http_brotli_static_module.so;' /etc/nginx/nginx.conf; \
