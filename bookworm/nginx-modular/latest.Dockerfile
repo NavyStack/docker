@@ -1,7 +1,5 @@
 ARG NGINX_VERSION=1.25.4
 FROM nginx:${NGINX_VERSION} as builder
-ARG TARGETARCH
-ARG PSOL=jammy
 
 RUN apt-get update && apt-get install -y \
     wget \
@@ -34,8 +32,10 @@ RUN git clone --recurse-submodules -j8 https://github.com/nginx-modules/ngx_cach
     cd ngx_cache_purge && git reset --hard a84b0f3f082025dec737a537a9a443bdd6d6af9d && \  
     cd /opt/build-stage
 
+RUN tar zxvf nginx-${NGINX_VERSION}.tar.gz
 
 WORKDIR /opt/build-stage/nginx-${NGINX_VERSION}
+
 RUN ./configure --with-compat \
     --add-dynamic-module=../ngx_brotli \
     --add-dynamic-module=../ngx_immutable \
