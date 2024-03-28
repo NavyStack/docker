@@ -42,10 +42,10 @@ sudo apt-get update \
 
 ##  CentOS, OL9 Docker 설치
 ```bash
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo \
     && sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y \
-    && sudo systemctl enable docker.service && \
-    && sudo systemctl enable containerd.service && \
+    && sudo systemctl enable docker.service \
+    && sudo systemctl enable containerd.service \
     && sudo systemctl start docker
 ```
 
