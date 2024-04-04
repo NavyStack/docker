@@ -1,7 +1,9 @@
 # Docker
+
 Docker 이미지만을 위한 저장소.
 
 ## Askfront.com
+
 초보자도 자유롭게 질문할 수 있는 포럼을 만들었습니다. <br />
 NavyStack의 가이드 뿐만 아니라, 아니라 모든 종류의 질문을 하실 수 있습니다.
 
@@ -10,7 +12,8 @@ NavyStack의 가이드 뿐만 아니라, 아니라 모든 종류의 질문을 �
 
 [AskFront.com (에스크프론트) 포럼](https://askfront.com/?github)
 
-##  Ubuntu Docker 설치
+## Ubuntu Docker 설치
+
 ```bash
 sudo apt-get update \
     && sudo apt-get install -y ca-certificates curl gnupg \
@@ -25,7 +28,8 @@ sudo apt-get update \
     && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-##  Debian Docker 설치
+## Debian Docker 설치
+
 ```bash
 sudo apt-get update \
     && sudo apt-get install -y ca-certificates curl gnupg \
@@ -40,7 +44,8 @@ sudo apt-get update \
     && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-##  CentOS, OL9 Docker 설치
+## CentOS, OL9 Docker 설치
+
 ```bash
 sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo \
     && sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y \
@@ -52,25 +57,44 @@ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/dock
 ## 공통사항
 
 ### docker 그룹 부여하기
+
 ```bash
 sudo chown root:docker /var/run/docker.sock && \
     sudo usermod -aG docker $USER
 ```
+
 반드시 일반 유저로 실행
 
 ### Docker 볼륨 일괄제거하기
+
 ```bash
 docker volume rm $(docker volume ls -f dangling=true -q)
 ```
+
 ### Docker 사용하지 않는 이미지, 빌드 캐시, 사용하지 않는 네트워크 설정등 한 방에 밀기
+
 ```bash
 docker system prune -af
 ```
+
 ### Docker 빌드 캐시만 날리기
+
 ```bash
 docker buildx prune -af
 ```
+
 ### Compile 관련
+
 ```bash
 docker buildx build --platform linux/arm/v7 -t test -f Dockerfile . --load --progress=plain 2>&1 | grep "Run-time dependency"
+```
+
+### Autonomous Docker Image Build (Git Trigger)
+
+```bash
+git tag -f <tag-name>
+```
+
+```bash
+git push origin <tag-name>
 ```
