@@ -163,3 +163,7 @@ sudo apt-get update \
   }
 
 ```
+
+「`org runner` のリファレンスは [こちら](https://github.com/netvpc/gnuboard6) にあります。」
+
+「`semver` のリファレンスは [こちら](https://github.com/netvpc/nodebb) にあります。」
