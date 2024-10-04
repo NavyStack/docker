@@ -1,4 +1,4 @@
-ARG NGINX_VERSION=1.25.4
+ARG NGINX_VERSION=1.27.2
 FROM nginx:${NGINX_VERSION} as builder
 
 RUN apt-get update && apt-get install -y \
